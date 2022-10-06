@@ -6,7 +6,9 @@ DATE=$(date +"%m/%d/%Y %R:%S :")
 echo "$DATE Beginning of Teardown!"
 
 
-
+cat /sys/bus/pci/devices/0000:28:00.0/reset_method
+echo 'device_specific' > /sys/bus/pci/devices/0000:28:00.0/reset_method
+cat /sys/bus/pci/devices/0000:28:00.0/reset_method
 
 echo "$DATE reattach 1"
 virsh nodedev-reattach pci_0000_28_00_1
