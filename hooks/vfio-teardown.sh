@@ -1,99 +1,44 @@
 #!/bin/bash
-
-#############################################################################
-##     ______  _                _  _______         _                 _     ##
-##    (_____ \(_)              | |(_______)       | |               | |    ##
-##     _____) )_  _   _  _____ | | _    _   _   _ | |__   _____   __| |    ##
-##    |  ____/| |( \ / )| ___ || || |  | | | | | ||  _ \ | ___ | / _  |    ##
-##    | |     | | ) X ( | ____|| || |__| | | |_| || |_) )| ____|( (_| |    ##
-##    |_|     |_|(_/ \_)|_____) \_)\______)|____/ |____/ |_____) \____|    ##
-##                                                                         ##
-#############################################################################
-###################### Credits ###################### ### Update PCI ID'S ###
-## Lily (PixelQubed) for editing the scripts       ## ##                   ##
-## RisingPrisum for providing the original scripts ## ##   update-pciids   ##
-## Void for testing and helping out in general     ## ##                   ##
-## .Chris. for testing and helping out in general  ## ## Run this command  ##
-## WORMS for helping out with testing              ## ## if you dont have  ##
-##################################################### ## names in you're   ##
-## The VFIO community for using the scripts and    ## ## lspci feedback    ##
-## testing them for us!                            ## ## in your terminal  ##
-##################################################### #######################
-
-################################# Variables #################################
-
-## Adds current time to var for use in echo for a cleaner log and script ##
+sleep 10
 DATE=$(date +"%m/%d/%Y %R:%S :")
 
-################################## Script ###################################
 
 echo "$DATE Beginning of Teardown!"
 
-## Unload VFIO-PCI driver ##
-modprobe -r vfio_pci
-modprobe -r vfio_iommu_type1
-modprobe -r vfio
-
-if grep -q "true" "/tmp/vfio-is-nvidia" ; then
-
-    ## Load NVIDIA drivers ##
-    echo "$DATE Loading NVIDIA GPU Drivers"
-    
-    modprobe drm
-    modprobe drm_kms_helper
-    modprobe i2c_nvidia_gpu
-    modprobe nvidia
-    modprobe nvidia_modeset
-    modprobe nvidia_drm
-    modprobe nvidia_uvm
-
-    echo "$DATE NVIDIA GPU Drivers Loaded"
-fi
-
-if  grep -q "true" "/tmp/vfio-is-amd" ; then
-
-    ## Load AMD drivers ##
-    echo "$DATE Loading AMD GPU Drivers"
-    
-    modprobe drm
-    modprobe amdgpu
-    modprobe radeon
-    modprobe drm_kms_helper
-    
-    echo "$DATE AMD GPU Drivers Loaded"
-fi
-
-## Restart Display Manager ##
-input="/tmp/vfio-store-display-manager"
-while read -r DISPMGR; do
-  if command -v systemctl; then
-
-    ## Make sure the variable got collected ##
-    echo "$DATE Var has been collected from file: $DISPMGR"
-
-    systemctl start "$DISPMGR.service"
-
-  else
-    if command -v sv; then
-      sv start "$DISPMGR"
-    fi
-  fi
-done < "$input"
-
-############################################################################################################
-## Rebind VT consoles (adapted and modernised from https://www.kernel.org/doc/Documentation/fb/fbcon.txt) ##
-############################################################################################################
-
-input="/tmp/vfio-bound-consoles"
-while read -r consoleNumber; do
-  if test -x /sys/class/vtconsole/vtcon"${consoleNumber}"; then
-      if [ "$(grep -c "frame buffer" "/sys/class/vtconsole/vtcon${consoleNumber}/name")" \
-           = 1 ]; then
-    echo "$DATE Rebinding console ${consoleNumber}"
-	  echo 1 > /sys/class/vtconsole/vtcon"${consoleNumber}"/bind
-      fi
-  fi
-done < "$input"
 
 
+
+echo "$DATE reattach 1"
+virsh nodedev-reattach pci_0000_28_00_1
+echo "$DATE reattach 0"
+virsh nodedev-reattach pci_0000_28_00_0
+
+sleep 10
+echo "$DATE load drvie1r amdgpu"
+modprobe  amdgpu
+echo "$DATE load drvie1r amdgpu ok"
+
+
+#echo "$DATE load drvier gpu_sched"
+#modprobe  gpu_sched
+#echo "$DATE load drvier ttm"
+#modprobe  ttm
+#echo "$DATE load drvier drm_kms_helper"
+#modprobe  drm_kms_helper
+#echo "$DATE load drvier i2c_algo_bit"
+#modprobe  i2c_algo_bit
+#echo "$DATE load drvier drm"
+#modprobe  drm
+#echo "$DATE load drvier snd_hda_intel"
+#modprobe  snd_hda_intel
+
+
+
+echo "$DATE sleep"
+sleep 10
+# Restart Display Manager
+echo "$DATE start display"
+systemctl start display-manager.service
+ 
+ 
 echo "$DATE End of Teardown!"
