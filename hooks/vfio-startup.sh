@@ -4,6 +4,9 @@ DATE=$(date +"%m/%d/%Y %R:%S :")
 
 
 echo "$DATE Beginning of Startup!"
+cat /sys/bus/pci/devices/0000:28:00.0/reset_method
+echo 'device_specific' > /sys/bus/pci/devices/0000:28:00.0/reset_method
+cat /sys/bus/pci/devices/0000:28:00.0/reset_method
 
 # Stop display manager
 systemctl stop display-manager.service
