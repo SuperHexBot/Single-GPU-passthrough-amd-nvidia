@@ -25,9 +25,9 @@ edit_kernel_boot_parameters(){
         BOOT_CONFIG_FILE="/boot/efi/loader/entries/Pop_OS-current.conf"
         if ! grep -i -q "intel_iommu" "$BOOT_CONFIG_FILE" && ! grep -i -q "amd_iommu" "$BOOT_CONFIG_FILE"; then
             if grep -i -q 'intel' "/proc/cpuinfo"; then     
-                $(sed -i 's/quiet /&intel_iommu=on iommu=pt /' "$BOOT_CONFIG_FILE")
+                $(sed -i 's/quiet /&intel_iommu=on iommu=pt video=efifb:off/' "$BOOT_CONFIG_FILE")
             elif grep -i -q 'amd' "/proc/cpuinfo"; then             
-                $(sed -i 's/quiet /&amd_iommu=on iommu=pt /' "$BOOT_CONFIG_FILE")
+                $(sed -i 's/quiet /&amd_iommu=on iommu=pt video=efifb:off/' "$BOOT_CONFIG_FILE")
             fi
         fi
     ;;
@@ -36,9 +36,9 @@ edit_kernel_boot_parameters(){
         BOOT_CONFIG_FILE="/etc/default/grub"
         if ! grep -i -q "intel_iommu" "$BOOT_CONFIG_FILE" && ! grep -i -q "amd_iommu" "$BOOT_CONFIG_FILE"; then
             if grep -i -q 'intel' "/proc/cpuinfo"; then     
-                $(sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="/&intel_iommu=on iommu=pt /' "$BOOT_CONFIG_FILE")
+                $(sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="/&intel_iommu=on iommu=pt video=efifb:off/' "$BOOT_CONFIG_FILE")
             elif grep -i -q 'amd' "/proc/cpuinfo"; then             
-                $(sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="/&amd_iommu=on iommu=pt /' "$BOOT_CONFIG_FILE")
+                $(sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="/&amd_iommu=on iommu=pt video=efifb:off/' "$BOOT_CONFIG_FILE")
             fi
         fi
     ;;
