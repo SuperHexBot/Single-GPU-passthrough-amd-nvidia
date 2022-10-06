@@ -11,14 +11,18 @@
 ### DISCLAIMER: This guide is pretty similar to many other single gpu guides, I am not trying to copy them nor take their credits, This guide is combining them all together for a better more fluid guide, this way you can use the scripts on all display-services and both amd/nvidia gpus (there might be some anomalies)
 
 <br />
-### Step 0:
-Bios:
-CSM ->enbale
-above 4g->enbale
-resizable bar->false
 
-sudo apt-get update -y
-sudo apt-get upgrade -y
+###
+### Step 0:
+
+- Bios setting <br />
+  ```CSM ->enbale ```<br />
+  ```above 4g->enbale```<br />
+  ```resizable bar->false```<br />
+  
+- Update unbutu soft <br />
+  ```sudo apt-get update -y ```<br />
+  ```sudo apt-get upgrade -y```<br />
 
 ###
 ### Step 1:
