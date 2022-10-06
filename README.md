@@ -16,9 +16,9 @@
 ### Step 0:
 
 - Bios setting <br />
-  ```CSM ->enbale ```<br />
-  ```above 4g->enbale```<br />
-  ```resizable bar->false```<br />
+  ```CSM ->disbale ```<br />
+  ```above 4g->disable```<br />
+  ```resizable bar->disable```<br />
   
 - Update unbutu soft <br />
   ```sudo apt-get update -y ```<br />
@@ -45,16 +45,34 @@ Now you just need to setup virt-manager as for now the scripts doesn't do it aut
 you can do that by visiting
 this <a href="https://gitlab.com/risingprismtv/single-gpu-passthrough/-/wikis/5)-Configuring-Virtual-Machine-Manager">
 link</a>
+
+- can add this to overvie xml
+- set vendor vaule you want <br/>``` 
+      <hyperv>
+      ......
+      <vendor_id state="on" value="12345ab"/>
+    </hyperv>
+    <kvm>
+      <hidden state="on"/>
+    </kvm>```
+    <br />
 After that, all that is left is to **install the scripts** with ``sudo bash ./install_hooks.sh``
 
-### Step 4:
 
-If you did everything right you can try running the vm (make sure it's named win10 otherwise make sure to replace `win10` in /etc/libvirt/hooks/qemu line 8 to the name) <br/>
-**nvidia users** might also want to go to
-this <a href="https://gitlab.com/risingprismtv/single-gpu-passthrough/-/wikis/6)-Preparation-and-placing-of-ROM-file">
-link</a>.<br/>
-If you have any problems you can join my discord server for faster response (top left) *or* you can mention me in your
-reddit post at r/VFIO with u/wabulu.
+### Step 4:
+- install vendor reset <br />
+  ``` git clone https://github.com/SuperHexBot/vendor-reset.git```<br />
+  ``` sudo dkms install .```<br />
+  ``` echo "vendor-reset" | sudo tee /etc/modules-load.d/vendor-reset.conf```<br />
+  ``` reboot```<br />
+- check vendor reset <br />
+ ``` dmesg | grep vendor_reset```<br />
+
+
+### Step 5:
+
+If you did everything right you can try running the vm (make sure it's named win10 otherwise make sure to replace `win10` in /etc/libvirt/hooks/qemu line 8 to the name) 
+
 
 ### Uninstalling
 - To uninstall run ``sudo bash ./uninstall.sh`` <br>
