@@ -13,7 +13,7 @@
 <br />
 
 ###
-### Step 0:
+### Step 1:
 
 - Bios setting <br />
   ```CSM ->disbale ```<br />
@@ -25,7 +25,7 @@
   ```sudo apt-get upgrade -y```<br />
 
 ###
-### Step 1:
+### Step 2:
 
 - Get the repository on your computer, either by downloading it zipped and extracting or cloning it as below
 - If you chose to clone it instead of downloading it you should do <br />
@@ -33,13 +33,13 @@
   ```git clone https://github.com/SuperHexBot/Single-GPU-passthrough-amd-nvidia.git```<br />
 
 
-### Step 2:
+### Step 3:
 
 - Run the script which would do (almost) everything for you by changing your directory to the folder with <br/>
   ``cd Single-GPU-passthrough-amd-nvidia/ ``<br/>
   and then executing the script with ``sudo bash ./setup.sh`` <br/>
 
-### Step 3:
+### Step 4:
 
 Now you just need to setup virt-manager as for now the scripts doesn't do it automatically, <br/>
 you can do that by visiting
@@ -59,7 +59,7 @@ link</a>
 After that, all that is left is to **install the scripts** with ``sudo bash ./install_hooks.sh``
 
 
-### Step 4:
+### Step 5:
 - install vendor reset <br />
   ``` git clone https://github.com/SuperHexBot/vendor-reset.git```<br />
   ``` sudo dkms install .```<br />
@@ -69,7 +69,7 @@ After that, all that is left is to **install the scripts** with ``sudo bash ./in
  ``` dmesg | grep vendor_reset```<br />
 
 
-### Step 5:
+### Step 6:
 
 If you did everything right you can try running the vm (make sure it's named win10 otherwise make sure to replace `win10` in /etc/libvirt/hooks/qemu line 8 to the name) 
 
