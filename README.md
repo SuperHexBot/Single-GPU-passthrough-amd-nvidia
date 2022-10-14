@@ -30,7 +30,7 @@
 - Get the repository on your computer, either by downloading it zipped and extracting or cloning it as below
 - If you chose to clone it instead of downloading it you should do <br />
   ```cd ~/Downloads ```<br />
-  ```git clone https://github.com/wabulu/Single-GPU-passthrough-amd-nvidia.git```<br />
+  ```git clone https://github.com/SuperHexBot/Single-GPU-passthrough-amd-nvidia.git```<br />
 
 
 ### Step 2:
