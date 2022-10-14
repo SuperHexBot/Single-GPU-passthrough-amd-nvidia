@@ -11,6 +11,9 @@
 ### DISCLAIMER: This guide is pretty similar to many other single gpu guides, I am not trying to copy them nor take their credits, This guide is combining them all together for a better more fluid guide, this way you can use the scripts on all display-services and both amd/nvidia gpus (there might be some anomalies)
 
 <br />
+
+
+
 ###
 ### Step 0:
 
