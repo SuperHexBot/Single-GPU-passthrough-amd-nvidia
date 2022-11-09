@@ -81,7 +81,15 @@ After that, all that is left is to **install the scripts** with ``sudo bash ./in
 ### Step 6:
 
 If you did everything right you can try running the vm (make sure it's named win10 otherwise make sure to replace `win10` in /etc/libvirt/hooks/qemu line 8 to the name) 
+### AddSata
 
+<br/>``` 
+      <disk type='block' device='disk'>
+      <driver name='qemu' type='raw' cache='none'/>
+      <source dev='/dev/sr0'/>
+      <target dev='vdc' bus='virtio'/>
+      </disk>```
+    <br />
 
 ### Uninstalling
 - To uninstall run ``sudo bash ./uninstall.sh`` <br>
