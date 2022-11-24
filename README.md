@@ -86,10 +86,16 @@ If you did everything right you can try running the vm (make sure it's named win
 <br/>``` 
       <disk type='block' device='disk'>
       <driver name='qemu' type='raw' cache='none'/>
-      <source dev='/dev/sr0'/>
+      <source dev='/dev/sdb1'/>
       <target dev='vdc' bus='virtio'/>
       </disk>```
     <br />
+### Improving the performance
+
+https://leduccc.medium.com/improving-the-performance-of-a-windows-10-guest-on-qemu-a5b3f54d9cf5
+
+
+https://mathiashueber.com/performance-tweaks-gaming-on-virtual-machines/#
 
 ### Uninstalling
 - To uninstall run ``sudo bash ./uninstall.sh`` <br>
